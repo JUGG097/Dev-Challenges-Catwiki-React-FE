@@ -1,19 +1,19 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { GlobalStyle } from "./styles/GlobalStyles";
+import LandingPage from "./pages/LandingPage";
+import HeaderComponent from "./components/HeaderComponent";
 
 function App() {
 	return (
 		<>
-			<Routes>
-				<Route
-					path="/"
-					element={
-						<div className="App">
-							<h1>App is starting</h1>
-						</div>
-					}
-				/>
-			</Routes>
+			<GlobalStyle />
+			<div className="container">
+				<HeaderComponent/>
+				<Routes>
+					<Route path="/" element={<LandingPage />} />
+				</Routes>
+			</div>
 		</>
 	);
 }
