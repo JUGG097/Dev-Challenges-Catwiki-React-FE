@@ -1,15 +1,25 @@
-export type JobData = {
-	id: number;
-	url: string;
-	title: string;
-	company_name: string;
-	company_logo: string;
-	category: string;
-	tags: string[];
-	job_type: string;
-	publication_date: string;
-	candidate_required_location: string;
-	salary: string;
+export type CatDetailsData = {
+	id: string;
+	name: string;
 	description: string;
-	company_logo_url?: string;
-};
+	temperament: string;
+	origin: string;
+	life_span: string;
+	wikipedia_url: string;
+	adaptability: Number;
+	affection_level: Number;
+	child_friendly: Number;
+	grooming: Number;
+	intelligence: Number;
+	health_issues: Number;
+	social_needs: Number;
+	stranger_friendly: Number;
+	image: CatImageData;
+}
+
+export type CatImageData = {
+	id: string;
+	width: Number;
+	height: Number;
+	url: string
+}

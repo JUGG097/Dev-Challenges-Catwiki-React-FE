@@ -63,6 +63,11 @@ const StyledLandingPage = styled.div`
 		border-radius: 2px;
 	}
 
+	.cat-details-name {
+		font-weight: 600;
+		font-size: 14px;
+	}
+
 	@media (max-width: 768px) {
 		.lp-jumbotron {
 			background: url(${HeroImgMd});

@@ -1,8 +1,11 @@
 import React from 'react'
+import StyledImageCardComponent from '../styles/ImageCardComponent.styled'
 
-const ImageCardComponent = () => {
+const ImageCardComponent: React.FC<{image_link: string}> = ({image_link}) => {
   return (
-    <div>ImageCardComponent</div>
+    <StyledImageCardComponent>
+      <img src={image_link} alt="Cat breed" className='img-fluid' />
+    </StyledImageCardComponent>
   )
 }
 

@@ -2,6 +2,8 @@ import React from "react";
 import SearchComponent from "../components/SearchComponent";
 import StyledLandingPage from "../styles/LandingPage.styled";
 import { BsArrowRight } from "react-icons/bs";
+import { MockCatDetailData } from "../utils/urls";
+import ImageCardComponent from "../components/ImageCardComponent";
 
 const LandingPage = () => {
 	return (
@@ -28,8 +30,8 @@ const LandingPage = () => {
 					<div className="col-sm-6 col-md-4">
 						<h2>66+ Breeds For you to discover</h2>
 					</div>
-					<div className="col-sm-2 col-md-4"></div>
-					<div className="col-6 col-sm-4 col-md-4 mt-2">
+					<div className="col-sm-2 col-md-5"></div>
+					<div className="col-6 col-sm-4 col-md-3 mt-2">
 						<div className="most-searched-page-link">
 							<a href="FDDDDD">
 								<p>
@@ -40,8 +42,14 @@ const LandingPage = () => {
 					</div>
 				</div>
 				<div className="row">
-					{/* TODO: Map through an array of cat images use card components */}
+					{MockCatDetailData.map((catDetail, index) => 
+						<div className="col-6 col-sm-3" key={index}>
+							<ImageCardComponent image_link={catDetail.image.url}/>
+							<p className="cat-details-name mt-2">{catDetail.name}</p>
+						</div>
+					)}
 				</div>
+				{/* TODO: Find a way to style a card component dynamically */}
 			</div>
 			<div className="lp-article">Article</div>
 		</StyledLandingPage>
