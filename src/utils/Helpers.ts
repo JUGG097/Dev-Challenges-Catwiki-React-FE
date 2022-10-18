@@ -98,3 +98,7 @@ export const MockCatDetailData: CatDetailsData[] = [
 		},
 	},
 ];
+
+export const numberToPixel = (value: number) => {
+	return `${value.toString()}px`;
+}

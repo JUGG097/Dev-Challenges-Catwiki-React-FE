@@ -6,6 +6,18 @@ import HeroImgSm from "../img/HeroImagesm.png";
 const StyledLandingPage = styled.div`
 	font-weight: 500;
 
+	h2 {
+		font-weight: 700;
+		font-size: 32px;
+	}
+
+	a {
+		color: #291507;
+		font-weight: 700;
+		text-align: end;
+		text-decoration: none;
+	}
+
 	.lp-jumbotron {
 		background: url(${HeroImgLg});
 		background-position: center;
@@ -28,33 +40,28 @@ const StyledLandingPage = styled.div`
 		padding: 30px 50px;
 		background-color: #e3e1dc;
 		color: #291507;
-        border-bottom-left-radius: 25px;
+		border-bottom-left-radius: 25px;
 		border-bottom-right-radius: 25px;
 
 		h4 {
 			font-size: 14px;
 		}
 
-		h2 {
-			font-weight: 700;
-			font-size: 32px;
-		}
-
 		.most-searched-page-link {
-            height: 100%;
-            flex-direction: column-reverse;
-            display: flex;
-            font-size: 14px;
-			a {
-				color: #291507;
-				font-weight: 700;
-				text-align: end;
-				text-decoration: none;
-			}
+			height: 100%;
+			flex-direction: column-reverse;
+			display: flex;
+			font-size: 14px;
 		}
 	}
 
 	.lp-article {
+		padding: 40px 50px;
+		color: #291507;
+
+		.article-text {
+			margin-top: 40px;
+		}
 	}
 
 	.title-underline {
@@ -74,6 +81,12 @@ const StyledLandingPage = styled.div`
 			background-position: center;
 			background-size: cover;
 		}
+
+		.lp-article {
+			.article-text {
+				margin-top: 20px;
+			}
+		}
 	}
 	@media (max-width: 576px) {
 		.lp-jumbotron {
@@ -87,8 +100,15 @@ const StyledLandingPage = styled.div`
 
 			.most-searched-page-link {
 				a {
-                    text-align: left;
+					text-align: left;
 				}
+			}
+		}
+		.lp-article {
+			padding: 20px 20px;
+
+			.article-images {
+				margin-top: 40px;
 			}
 		}
 	}
