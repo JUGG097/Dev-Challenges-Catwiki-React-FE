@@ -5,6 +5,7 @@ import { BsArrowRight } from "react-icons/bs";
 import { MockCatDetailData } from "../utils/Helpers";
 import ImageCardComponent from "../components/ImageCardComponent";
 import { Masonry } from "@mui/lab";
+import { Link } from "react-router-dom";
 
 const LandingPage = () => {
 	return (
@@ -34,11 +35,11 @@ const LandingPage = () => {
 					<div className="col-sm-2 col-md-4"></div>
 					<div className="col-6 col-sm-4 col-md-3 mt-2">
 						<div className="most-searched-page-link">
-							<a href="/most-searched">
+							<Link to={"/most-searched"}>
 								<p>
 									SEE MORE <BsArrowRight />
 								</p>
-							</a>
+							</Link>
 						</div>
 					</div>
 				</div>
