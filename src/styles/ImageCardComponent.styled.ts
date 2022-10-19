@@ -7,8 +7,9 @@ const StyledImageCardComponent = styled.div<{img_height: number}>`
 
     img {
         border-radius: 20px;
+        border: 2px solid #291507;
         height: ${(props) => numberToPixel(props.img_height)};
-        width: 100%;
+        width: 90%;
     }
 
     .special-bg-effect {

@@ -34,7 +34,7 @@ const LandingPage = () => {
 					<div className="col-sm-2 col-md-4"></div>
 					<div className="col-6 col-sm-4 col-md-3 mt-2">
 						<div className="most-searched-page-link">
-							<a href="FDDDDD">
+							<a href="/most-searched">
 								<p>
 									SEE MORE <BsArrowRight />
 								</p>
@@ -43,6 +43,7 @@ const LandingPage = () => {
 					</div>
 				</div>
 				<div className="row mt-4">
+					{/* TODO: Create a loading gif component */}
 					{MockCatDetailData.map((catDetail, index) => (
 						<div className="col-6 col-sm-3" key={index}>
 							<ImageCardComponent
@@ -67,7 +68,7 @@ const LandingPage = () => {
 							release of calming chemicals in your body which
 							lower your stress and anxiety levels
 						</p>
-						<a href="ERRRR" className="mt-4">
+						<a href="https://www.helpguide.org/articles/healthy-living/joys-of-owning-a-cat.htm" className="mt-4" target="_blank" rel="noreferrer">
 							READ MORE <BsArrowRight />
 						</a>
 					</div>
