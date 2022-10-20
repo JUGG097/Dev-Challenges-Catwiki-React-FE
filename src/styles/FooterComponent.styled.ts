@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledFooterComponent = styled.div`
-    margin-top: 20px;
+    margin-top: 40px;
     padding: 10px 50px;
     background: black;
     color: white;

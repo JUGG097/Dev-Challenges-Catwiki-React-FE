@@ -14,7 +14,6 @@ const StyledLandingPage = styled.div`
 	a {
 		color: #291507;
 		font-weight: 700;
-		text-align: end;
 		text-decoration: none;
 	}
 
@@ -52,6 +51,10 @@ const StyledLandingPage = styled.div`
 			flex-direction: column-reverse;
 			display: flex;
 			font-size: 14px;
+
+			a {
+				text-align: end;
+			}
 		}
 	}
 

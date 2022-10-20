@@ -18,6 +18,12 @@ const StyledMostSearchedPage = styled.div`
         font-size: 16px;
     }
 
+	a {
+		color: #291507;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
 	.ms-info-rows {
 		margin-top: 40px;
 	}

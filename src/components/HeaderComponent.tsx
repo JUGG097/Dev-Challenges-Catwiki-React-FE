@@ -5,7 +5,7 @@ import StyledHeaderComponent from "../styles/HeaderComponent.styled";
 const HeaderComponent = () => {
 	return (
 		<StyledHeaderComponent>
-			<Link to={"/"}><img className="img-fluid" src="img/CatwikiLogo.svg" alt="Site Logo"/></Link>	
+			<Link to={"/"}><img className="img-fluid" src="/img/CatwikiLogo.svg" alt="Site Logo"/></Link>	
 		</StyledHeaderComponent>
 	);
 };

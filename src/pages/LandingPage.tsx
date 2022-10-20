@@ -52,9 +52,11 @@ const LandingPage = () => {
 								bg_effect={index === 0}
 								img_height={180}
 							/>
-							<p className="cat-details-name mt-2">
-								{catDetail.name}
-							</p>
+							<Link to={`/details/${catDetail.name}`}>
+								<p className="cat-details-name mt-2">
+									{catDetail.name}
+								</p>
+							</Link>
 						</div>
 					))}
 				</div>
@@ -69,7 +71,12 @@ const LandingPage = () => {
 							release of calming chemicals in your body which
 							lower your stress and anxiety levels
 						</p>
-						<a href="https://www.helpguide.org/articles/healthy-living/joys-of-owning-a-cat.htm" className="mt-4" target="_blank" rel="noreferrer">
+						<a
+							href="https://www.helpguide.org/articles/healthy-living/joys-of-owning-a-cat.htm"
+							className="mt-4"
+							target="_blank"
+							rel="noreferrer"
+						>
 							READ MORE <BsArrowRight />
 						</a>
 					</div>

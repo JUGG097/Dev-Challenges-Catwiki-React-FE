@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import ImageCardComponent from "../components/ImageCardComponent";
 import StyledMostSearchedPage from "../styles/MostSearchedPage.styled";
 import { MockCatDetailData } from "../utils/Helpers";
@@ -10,7 +11,7 @@ const MostSearchedPage = () => {
 
 			{MockCatDetailData.map((catDetail, index) => (
 				<div className="row ms-info-rows" key={index}>
-					<div className="col-7 col-sm-3" >
+					<div className="col-7 col-sm-3">
 						<ImageCardComponent
 							image_link={catDetail.image.url}
 							bg_effect={false}
@@ -18,9 +19,12 @@ const MostSearchedPage = () => {
 						/>
 					</div>
 					<div className="col-sm-9">
-						<h4>
-							{(index + 1).toString()}. {catDetail.name}
-						</h4>
+						<Link to={`/details/${catDetail.name}`}>
+							<h4>
+								{(index + 1).toString()}. {catDetail.name}
+							</h4>
+						</Link>
+
 						<p>{catDetail.description}</p>
 					</div>
 				</div>
