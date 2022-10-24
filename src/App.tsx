@@ -17,8 +17,7 @@ function App() {
 					<Route path="/" element={<LandingPage />} />
 					<Route path="/most-searched" element={<MostSearchedPage />}/>
 					<Route path="/details/:name" element={<GetDetailsPage />}/>
-					TODO: Make search box dynamic, idea is to hid and reveal using media query, 
-					all implementations like the Modal for mobile should be in Search Component
+					TODO: Use MockData and timeout to simulate API requests
 					TODO: Follow example in Remotive Jobs call the API here at the root once and pass as props into
 					LandingPage and MostSearchedPage
 					TODO: Pass the error and loading states as props into the pages as only a section of LandingPage 

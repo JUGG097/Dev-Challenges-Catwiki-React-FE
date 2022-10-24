@@ -36,40 +36,40 @@ const GetDetailsPage = () => {
 						<span>Adaptability: </span>{" "}
 						{numberToTiles(singleCatDetailData.adaptability)}
 					</p>
-          <p>
+					<p>
 						<span>Affection Level: </span>{" "}
 						{numberToTiles(singleCatDetailData.affection_level)}
 					</p>
-          <p>
+					<p>
 						<span>Child Friendly: </span>{" "}
 						{numberToTiles(singleCatDetailData.child_friendly)}
 					</p>
-          <p>
+					<p>
 						<span>Grooming: </span>{" "}
 						{numberToTiles(singleCatDetailData.grooming)}
 					</p>
-          <p>
+					<p>
 						<span>Intelligence: </span>{" "}
 						{numberToTiles(singleCatDetailData.intelligence)}
 					</p>
-          <p>
+					<p>
 						<span>Health Issues: </span>{" "}
 						{numberToTiles(singleCatDetailData.health_issues)}
 					</p>
-          <p>
+					<p>
 						<span>Social Needs: </span>{" "}
 						{numberToTiles(singleCatDetailData.social_needs)}
 					</p>
-          <p>
+					<p>
 						<span>Stranger friendly: </span>{" "}
 						{numberToTiles(singleCatDetailData.stranger_friendly)}
 					</p>
 				</div>
 			</div>
 			<div className="details-other-photos mt-4">
-        <h4>Other Photos</h4>
-        <div className="row">
-        {MockCatDetailData.map((catDetail, index) => (
+				<h4>Other Photos</h4>
+				<div className="row">
+					{MockCatDetailData.map((catDetail, index) => (
 						<div className="col-6 col-sm-3 mt-4" key={index}>
 							<ImageCardComponent
 								image_link={catDetail.image.url}
@@ -78,7 +78,7 @@ const GetDetailsPage = () => {
 							/>
 						</div>
 					))}
-        {MockCatDetailData.map((catDetail, index) => (
+					{MockCatDetailData.map((catDetail, index) => (
 						<div className="col-6 col-sm-3 mt-4" key={index}>
 							<ImageCardComponent
 								image_link={catDetail.image.url}
@@ -87,9 +87,8 @@ const GetDetailsPage = () => {
 							/>
 						</div>
 					))}
-        </div>
-        
-      </div>
+				</div>
+			</div>
 		</StyledGetDetailsPage>
 	);
 };
@@ -98,9 +97,12 @@ const numberToTiles = (value: Number) => {
 	const mockArray = [0, 1, 2, 3, 4];
 	return (
 		<div className="number-to-tiles">
-		  {mockArray.map((el, index) => <span key={index} className={el < value ? "shaded-tiles" : "unshaded-tiles"}>
-
-		  </span>)}
+			{mockArray.map((el, index) => (
+				<span
+					key={index}
+					className={el < value ? "shaded-tiles" : "unshaded-tiles"}
+				></span>
+			))}
 		</div>
 	);
 };
