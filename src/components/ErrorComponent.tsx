@@ -1,15 +1,19 @@
 import React from "react";
 import StyledLoadingComponent from "../styles/LoadingComponent.styled";
 
-const LoadingComponent: React.FC<{
+const ErrorComponent: React.FC<{
 	height: number;
 }> = ({ height }) => {
 	return (
 		<StyledLoadingComponent wrapper_height={height}>
-			<img src="/img/Loading_Icon.svg" className="img-fluid" alt="Loading Icon"/>
-      <p>Loading...</p>
+			<img
+				src="/img/Error_Icon.svg"
+				className="img-fluid"
+				alt="Loading Icon"
+			/>
+			<p>Could Not Fetch Data</p>
 		</StyledLoadingComponent>
 	);
 };
 
-export default LoadingComponent;
+export default ErrorComponent;

@@ -23,3 +23,8 @@ export type CatImageData = {
 	height: Number;
 	url: string
 }
+
+export type BreedListData = {
+	id: string;
+	name: string;
+}

@@ -2,12 +2,18 @@ import React from "react";
 import SearchComponent from "../components/SearchComponent";
 import StyledLandingPage from "../styles/LandingPage.styled";
 import { BsArrowRight } from "react-icons/bs";
-import { MockCatDetailData } from "../utils/Helpers";
 import ImageCardComponent from "../components/ImageCardComponent";
 import { Masonry } from "@mui/lab";
 import { Link } from "react-router-dom";
+import { CatDetailsData } from "../utils/Types";
+import LoadingComponent from "../components/LoadingComponent";
+import ErrorComponent from "../components/ErrorComponent";
 
-const LandingPage = () => {
+const LandingPage: React.FC<{
+	dataLoading: boolean;
+	dataError: boolean;
+	catData: CatDetailsData[];
+}> = ({ dataLoading, dataError, catData }) => {
 	return (
 		<StyledLandingPage>
 			<div className="lp-jumbotron">
@@ -44,21 +50,26 @@ const LandingPage = () => {
 					</div>
 				</div>
 				<div className="row mt-4">
-					{/* TODO: Create a loading gif component */}
-					{MockCatDetailData.map((catDetail, index) => (
-						<div className="col-6 col-sm-3" key={index}>
-							<ImageCardComponent
-								image_link={catDetail.image.url}
-								bg_effect={index === 0}
-								img_height={180}
-							/>
-							<Link to={`/details/${catDetail.name}`}>
-								<p className="cat-details-name mt-2">
-									{catDetail.name}
-								</p>
-							</Link>
-						</div>
-					))}
+					{dataLoading ? (
+						<LoadingComponent height={120} />
+					) : dataError ? (
+						<ErrorComponent height={120} />
+					) : (
+						catData.map((catDetail, index) => (
+							<div className="col-6 col-sm-3" key={index}>
+								<ImageCardComponent
+									image_link={catDetail.image.url}
+									bg_effect={index === 0}
+									img_height={180}
+								/>
+								<Link to={`/details/${catDetail.name}`}>
+									<p className="cat-details-name mt-2">
+										{catDetail.name}
+									</p>
+								</Link>
+							</div>
+						))
+					)}
 				</div>
 			</div>
 			<div className="lp-article">

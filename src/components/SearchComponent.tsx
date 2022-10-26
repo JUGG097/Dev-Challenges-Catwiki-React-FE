@@ -1,13 +1,43 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import StyledSearchComponent, {
 	StyledSearchModal,
 } from "../styles/SearchComponent.styled";
 import { RiSearch2Line } from "react-icons/ri";
 import Dialog from "@mui/material/Dialog";
+import { BreedListData } from "../utils/Types";
+import { MockBreedList } from "../utils/Helpers";
 
 const SearchComponent = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [openSearchList, setOpenSearchList] = useState(false);
+	const [breedList, setBreedList] = useState<BreedListData[]>([]);
+	const [filterBreedList, setFilteredBreedList] = useState<BreedListData[]>(
+		[]
+	);
+	const [isLoading, setIsLoading] = useState(false);
+	const [errorOccurred, setErrorOccuured] = useState(false);
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const searchValue = e.currentTarget.value.toLowerCase();
+		console.log(searchValue);
+		if (searchValue === "") {
+			setFilteredBreedList([]);
+		} else {
+			const filterData = breedList.filter((breed) =>
+				breed.name.toLowerCase().includes(searchValue)
+			);
+			setFilteredBreedList(filterData);
+		}
+	};
+
+	useEffect(() => {
+		//TODO: Fetch a list of breeds and map to a state
+		setIsLoading(true);
+		setTimeout(() => {
+			setBreedList(MockBreedList);
+			setIsLoading(false);
+		}, 2000);
+	}, []);
 
 	return (
 		<StyledSearchComponent>
@@ -15,11 +45,12 @@ const SearchComponent = () => {
 				<input
 					type="search"
 					placeholder="Enter your Breed"
-					onClick={() => setOpenSearchList(true)}
+					onChange={handleChange}
 				/>
 				<RiSearch2Line />
 				{/* Maybe it will better to render when the input value is not empty */}
-				{openSearchList && renderSearchArray()}
+				{filterBreedList.length !== 0 &&
+					renderSearchArray(filterBreedList, isLoading, errorOccurred)}
 			</div>
 
 			<div className="mobile-search">
@@ -55,12 +86,17 @@ const SearchComponent = () => {
 								<input
 									type="search"
 									placeholder="Enter your Breed"
-                  onClick={() => setOpenSearchList(true)}
+									onClick={() => setOpenSearchList(true)}
 								/>
 								<RiSearch2Line />
 
 								{/* Maybe it will better to render when the input value is not empty */}
-								{openSearchList && renderSearchArray()}
+								{filterBreedList.length !== 0 &&
+									renderSearchArray(
+										filterBreedList,
+										isLoading,
+										errorOccurred
+									)}
 							</div>
 						</div>
 					</div>
@@ -70,25 +106,24 @@ const SearchComponent = () => {
 	);
 };
 
-const renderSearchArray = () => {
+const renderSearchArray = (
+	data: BreedListData[],
+	dataLoading: boolean,
+	dataError: boolean
+) => {
 	return (
 		<div className="search-list-container">
-			{/* TODO: Render search results here, if empty put no data */}
-			<a href="£">
-				<p>Bengal</p>
-			</a>
-			<a href="£">
-				<p>Bengal</p>
-			</a>
-			<a href="£">
-				<p>Bengal</p>
-			</a>
-			<a href="£">
-				<p>Bengal</p>
-			</a>
-			<a href="£">
-				<p>Bengal</p>
-			</a>
+			{dataLoading ? (
+				<p>Loading Data</p>
+			) : dataError ? (
+				<p>Unable to Load Data</p>
+			) : (
+				data.map((ele, index) => (
+					<a href="£" key={index}>
+						<p>{ele.name}</p>
+					</a>
+				))
+			)}
 		</div>
 	);
 };
