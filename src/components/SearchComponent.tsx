@@ -21,7 +21,7 @@ const SearchComponent = () => {
 		const searchValue = e.currentTarget.value.toLowerCase();
 		console.log(searchValue);
 		if (searchValue === "") {
-			setFilteredBreedList([]);
+			setFilteredBreedList(breedList);
 		} else {
 			const filterData = breedList.filter((breed) =>
 				breed.name.toLowerCase().includes(searchValue)
@@ -31,11 +31,13 @@ const SearchComponent = () => {
 	};
 
 	useEffect(() => {
-		//TODO: Fetch a list of breeds and map to a state
+		setErrorOccuured(false)
 		setIsLoading(true);
 		setTimeout(() => {
 			setBreedList(MockBreedList);
 			setIsLoading(false);
+			setFilteredBreedList(MockBreedList)
+			setErrorOccuured(false)
 		}, 2000);
 	}, []);
 
@@ -46,11 +48,16 @@ const SearchComponent = () => {
 					type="search"
 					placeholder="Enter your Breed"
 					onChange={handleChange}
+					onBlur={() => setOpenSearchList(false)}
+					onClick={() => setOpenSearchList(true)}
 				/>
 				<RiSearch2Line />
-				{/* Maybe it will better to render when the input value is not empty */}
-				{filterBreedList.length !== 0 &&
-					renderSearchArray(filterBreedList, isLoading, errorOccurred)}
+				{openSearchList &&
+					renderSearchArray(
+						filterBreedList,
+						isLoading,
+						errorOccurred
+					)}
 			</div>
 
 			<div className="mobile-search">
@@ -86,12 +93,12 @@ const SearchComponent = () => {
 								<input
 									type="search"
 									placeholder="Enter your Breed"
+									onChange={handleChange}
 									onClick={() => setOpenSearchList(true)}
+									onBlur={() => setOpenSearchList(false)}
 								/>
 								<RiSearch2Line />
-
-								{/* Maybe it will better to render when the input value is not empty */}
-								{filterBreedList.length !== 0 &&
+								{openSearchList &&
 									renderSearchArray(
 										filterBreedList,
 										isLoading,
@@ -114,9 +121,11 @@ const renderSearchArray = (
 	return (
 		<div className="search-list-container">
 			{dataLoading ? (
-				<p>Loading Data</p>
+				<p>Loading Data...</p>
 			) : dataError ? (
 				<p>Unable to Load Data</p>
+			) : data.length === 0 ? (
+				<p>No Data Founds</p>
 			) : (
 				data.map((ele, index) => (
 					<a href="£" key={index}>

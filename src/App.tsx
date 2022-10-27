@@ -20,7 +20,6 @@ function App() {
 		setTimeout(() => {
 			setTopCatDetails(MockCatDetailData);
 			setIsLoading(false);
-			// setErrorOccuured(true)
 		}, 2000);
 	}, []);
 
@@ -52,7 +51,6 @@ function App() {
 					/>
 					<Route path="/details/:name" element={<GetDetailsPage />} />
 					TODO: Use MockData and timeout to simulate API requests
-					TODO: Sort out the logic for the search component
 				</Routes>
 				<FooterComponent />
 			</div>
