@@ -30,7 +30,7 @@ const MostSearchedPage: React.FC<{
 							/>
 						</div>
 						<div className="col-sm-9">
-							<Link to={`/details/${catDetail.name}`}>
+							<Link to={`/details/${catDetail.id}`}>
 								<h4>
 									{(index + 1).toString()}. {catDetail.name}
 								</h4>

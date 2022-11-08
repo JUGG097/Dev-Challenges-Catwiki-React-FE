@@ -5,7 +5,8 @@ import StyledSearchComponent, {
 import { RiSearch2Line } from "react-icons/ri";
 import Dialog from "@mui/material/Dialog";
 import { BreedListData } from "../utils/Types";
-import { MockBreedList } from "../utils/Helpers";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 const SearchComponent = () => {
 	const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,15 +31,24 @@ const SearchComponent = () => {
 		}
 	};
 
+	const handleOpenSearchList = (value: boolean) => {
+		setOpenSearchList(value);
+	};
+
 	useEffect(() => {
-		setErrorOccuured(false)
+		setErrorOccuured(false);
 		setIsLoading(true);
-		setTimeout(() => {
-			setBreedList(MockBreedList);
-			setIsLoading(false);
-			setFilteredBreedList(MockBreedList)
-			setErrorOccuured(false)
-		}, 2000);
+		axios
+			.get("https://catwiki.juggyprojects.com/api/v1/breedlist")
+			.then((res) => {
+				setBreedList(res.data.data);
+				setFilteredBreedList(res.data.data);
+				setIsLoading(false);
+			})
+			.catch((err) => {
+				setErrorOccuured(true);
+				setIsLoading(false);
+			});
 	}, []);
 
 	return (
@@ -48,7 +58,6 @@ const SearchComponent = () => {
 					type="search"
 					placeholder="Enter your Breed"
 					onChange={handleChange}
-					onBlur={() => setOpenSearchList(false)}
 					onClick={() => setOpenSearchList(true)}
 				/>
 				<RiSearch2Line />
@@ -56,7 +65,8 @@ const SearchComponent = () => {
 					renderSearchArray(
 						filterBreedList,
 						isLoading,
-						errorOccurred
+						errorOccurred,
+						handleOpenSearchList
 					)}
 			</div>
 
@@ -95,14 +105,14 @@ const SearchComponent = () => {
 									placeholder="Enter your Breed"
 									onChange={handleChange}
 									onClick={() => setOpenSearchList(true)}
-									onBlur={() => setOpenSearchList(false)}
 								/>
 								<RiSearch2Line />
 								{openSearchList &&
 									renderSearchArray(
 										filterBreedList,
 										isLoading,
-										errorOccurred
+										errorOccurred,
+										handleOpenSearchList,
 									)}
 							</div>
 						</div>
@@ -116,10 +126,12 @@ const SearchComponent = () => {
 const renderSearchArray = (
 	data: BreedListData[],
 	dataLoading: boolean,
-	dataError: boolean
+	dataError: boolean,
+	handleOpenSearchList: (value: boolean) => void
 ) => {
 	return (
 		<div className="search-list-container">
+			<span onClick={() => handleOpenSearchList(false)}>&#128473;</span>
 			{dataLoading ? (
 				<p>Loading Data...</p>
 			) : dataError ? (
@@ -128,9 +140,9 @@ const renderSearchArray = (
 				<p>No Data Founds</p>
 			) : (
 				data.map((ele, index) => (
-					<a href="£" key={index}>
+					<Link to={`/details/${ele.id}`} key={index}>
 						<p>{ele.name}</p>
-					</a>
+					</Link>
 				))
 			)}
 		</div>
