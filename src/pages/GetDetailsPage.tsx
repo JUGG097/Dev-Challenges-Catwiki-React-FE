@@ -1,11 +1,12 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ErrorComponent from "../components/ErrorComponent";
 import ImageCardComponent from "../components/ImageCardComponent";
 import LoadingComponent from "../components/LoadingComponent";
 import StyledGetDetailsPage from "../styles/GetDetailsPage.styled";
-import { initialCatDetailStateData, MockCatDetailData } from "../utils/Helpers";
-import { CatDetailsData } from "../utils/Types";
+import { initialCatDetailStateData } from "../utils/Helpers";
+import { CatDetailsData, CatImageData } from "../utils/Types";
 
 const GetDetailsPage = () => {
 	const { name } = useParams();
@@ -16,27 +17,35 @@ const GetDetailsPage = () => {
 	const [errorOccurredDetails, setErrorOccurredDetails] = useState(false);
 	const [isPhotosLoading, setIsPhotosLoading] = useState(false);
 	const [errorOccurredPhotos, setErrorOccurredPhotos] = useState(false);
-	// TODO: Set a state for array of photos, set types
+	const [otherCatPhotos, setOtherCatPhotos] = useState<CatImageData[]>([]);
 
 	useEffect(() => {
 		setIsDetailsLoading(true);
 		setIsPhotosLoading(true);
-		// TODO: Run the fetch photos endpoint after successful fetching of  cat details
-		setTimeout(() => {
-			const filterData = MockCatDetailData.filter(
-				(catDetails) => catDetails.name === name
-			);
-			if (filterData.length === 0) {
-				setErrorOccurredDetails(true);
-				setErrorOccurredPhotos(true);
-			}
-			setCatDetails(filterData[0]);
-			setIsDetailsLoading(false);
-		}, 2000);
+		axios
+			.get("https://catwiki.juggyprojects.com/api/v1/details/" + name)
+			.then((res) => {
+				setCatDetails(res.data.data);
+				setIsDetailsLoading(false);
 
-		setTimeout(() => {
-			setIsPhotosLoading(false);
-		}, 4000);
+				axios
+					.get(
+						"https://catwiki.juggyprojects.com/api/v1/photos/" +
+							name
+					)
+					.then((res) => {
+						setOtherCatPhotos(res.data.data);
+						setIsPhotosLoading(false);
+					})
+					.catch((err) => {
+						setErrorOccurredPhotos(true);
+						setIsPhotosLoading(false);
+					});
+			})
+			.catch((err) => {
+				setErrorOccurredDetails(true);
+				setIsDetailsLoading(false);
+			});
 	}, [name]);
 
 	return (
@@ -56,7 +65,7 @@ const GetDetailsPage = () => {
 							/>
 						</div>
 						<div className="col-sm-8">
-							<h4>{name}</h4>
+							<h4>{catDetails.name}</h4>
 							<p className="">{catDetails.description}</p>
 							<p>
 								<span>Temperament: </span>{" "}
@@ -115,25 +124,13 @@ const GetDetailsPage = () => {
 						<ErrorComponent height={250} />
 					) : (
 						<>
-							{MockCatDetailData.map((catDetail, index) => (
+							{otherCatPhotos.map((catPhoto, index) => (
 								<div
 									className="col-6 col-sm-3 mt-4"
 									key={index}
 								>
 									<ImageCardComponent
-										image_link={catDetail.image.url}
-										bg_effect={false}
-										img_height={180}
-									/>
-								</div>
-							))}
-							{MockCatDetailData.map((catDetail, index) => (
-								<div
-									className="col-6 col-sm-3 mt-4"
-									key={index}
-								>
-									<ImageCardComponent
-										image_link={catDetail.image.url}
+										image_link={catPhoto.url}
 										bg_effect={false}
 										img_height={180}
 									/>

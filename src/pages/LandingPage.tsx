@@ -62,7 +62,7 @@ const LandingPage: React.FC<{
 									bg_effect={index === 0}
 									img_height={180}
 								/>
-								<Link to={`/details/${catDetail.name}`}>
+								<Link to={`/details/${catDetail.id}`}>
 									<p className="cat-details-name mt-2">
 										{catDetail.name}
 									</p>

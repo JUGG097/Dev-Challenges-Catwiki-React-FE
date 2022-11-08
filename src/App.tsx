@@ -7,20 +7,25 @@ import FooterComponent from "./components/FooterComponent";
 import MostSearchedPage from "./pages/MostSearchedPage";
 import GetDetailsPage from "./pages/GetDetailsPage";
 import { CatDetailsData } from "./utils/Types";
-import { MockCatDetailData } from "./utils/Helpers";
+import axios from "axios";
 
 function App() {
 	const [topCatDetails, setTopCatDetails] = useState<CatDetailsData[]>([]);
 	const [isLoading, setIsLoading] = useState(false);
-	const [errorOccuured, setErrorOccuured] = useState(false);
+	const [errorOccurred, setErrorOccurred] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
-		setErrorOccuured(false)
-		setTimeout(() => {
-			setTopCatDetails(MockCatDetailData);
-			setIsLoading(false);
-		}, 2000);
+		setErrorOccurred(false);
+		axios.get(
+			"https://catwiki.juggyprojects.com/api/v1/topTen"
+		).then((res) => {
+			setTopCatDetails(res.data.data)
+			setIsLoading(false)
+		}).catch((err) => {
+			setErrorOccurred(true)
+			setIsLoading(false)
+		})
 	}, []);
 
 	return (
@@ -34,8 +39,8 @@ function App() {
 						element={
 							<LandingPage
 								dataLoading={isLoading}
-								dataError={errorOccuured}
-								catData={topCatDetails}
+								dataError={errorOccurred}
+								catData={topCatDetails.slice(0, 4)}
 							/>
 						}
 					/>
@@ -44,13 +49,12 @@ function App() {
 						element={
 							<MostSearchedPage
 								dataLoading={isLoading}
-								dataError={errorOccuured}
+								dataError={errorOccurred}
 								catData={topCatDetails}
 							/>
 						}
 					/>
 					<Route path="/details/:name" element={<GetDetailsPage />} />
-					TODO: Use MockData and timeout to simulate API requests
 				</Routes>
 				<FooterComponent />
 			</div>
