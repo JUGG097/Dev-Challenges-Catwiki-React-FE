@@ -20,7 +20,6 @@ const SearchComponent = () => {
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const searchValue = e.currentTarget.value.toLowerCase();
-		console.log(searchValue);
 		if (searchValue === "") {
 			setFilteredBreedList(breedList);
 		} else {

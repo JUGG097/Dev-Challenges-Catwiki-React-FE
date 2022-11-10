@@ -9,7 +9,7 @@ const ErrorComponent: React.FC<{
 			<img
 				src="/img/Error_Icon.svg"
 				className="img-fluid"
-				alt="Loading Icon"
+				alt="Error Icon"
 			/>
 			<p>Could Not Fetch Data</p>
 		</StyledLoadingComponent>
