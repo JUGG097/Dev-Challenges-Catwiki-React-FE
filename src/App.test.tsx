@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import App from "./App";
 import { BrowserRouter, MemoryRouter } from "react-router-dom";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { MockCatDetailData } from "./utils/Helpers";
+import { MockCatDetailData, MockBreedList } from "./utils/Helpers";
 import userEvent from "@testing-library/user-event";
 
 jest.mock("axios");
@@ -94,6 +94,58 @@ describe("Landing Page Rendering", () => {
 	});
 });
 
+describe("Search Breeds Functionality", () => {
+  beforeEach(() => {
+    const MockTopTenCall: AxiosResponse = {
+      data: {
+        success: true,
+        data: MockCatDetailData,
+      },
+      status: 200,
+      headers: {},
+      config: {},
+      statusText: "OK",
+    };
+
+    const MockBreedListCall: AxiosResponse = {
+      data: {
+        success: true,
+        data: MockBreedList,
+      },
+      status: 200,
+      headers: {},
+      config: {},
+      statusText: "OK",
+    };
+  
+    mockedAxios.get.mockResolvedValueOnce(MockTopTenCall);
+    mockedAxios.get.mockResolvedValueOnce(MockTopTenCall);
+    mockedAxios.get.mockResolvedValueOnce(MockBreedListCall);
+  })
+  test("Search Logic Test v1", async () => {
+    render(<App />, { wrapper: BrowserRouter });
+    expect(await screen.findAllByAltText("Cat breed")).toHaveLength(
+      MockCatDetailData.length
+    );
+    // Simulate a search query
+    userEvent.click(screen.getByPlaceholderText("Enter your Breed"))
+    userEvent.keyboard("Bengal")
+    expect(screen.getAllByText("Bengal").length).toBeGreaterThan(1)
+  })
+
+  test("Search Logic Test v2", async () => {
+    render(<App />, { wrapper: BrowserRouter });
+    expect(await screen.findAllByAltText("Cat breed")).toHaveLength(
+      MockCatDetailData.length
+    );
+    // Simulate a search query
+    userEvent.click(screen.getByPlaceholderText("Enter your Breed"))
+    userEvent.keyboard("Bengalsdsd")
+    expect(screen.getAllByText("Bengal").length).toBe(1)
+  })
+  
+})
+
 describe("Most Searched Page Rendering", () => {
 	beforeEach(() => {
 		const MockTopTenCall: AxiosResponse = {
@@ -183,10 +235,9 @@ describe("Cat Details Page Rendering", () => {
 			statusText: "OK",
 		};
 
+		// This order matters apparently, just refresh page on browser and see how requests are called
 
-    // This order matters apparently, just refresh page on browser and see how requests are called
-
-    // For future testing might be better to create a mock server...checkout (wsw)
+		// For future testing might be better to create a mock server...checkout (wsw)
 		mockedAxios.get.mockResolvedValueOnce(MockCatDetailsCall);
 		mockedAxios.get.mockResolvedValueOnce(MockTopTenCall);
 		mockedAxios.get.mockResolvedValueOnce(MockCatPhotosCall);
@@ -203,9 +254,14 @@ describe("Cat Details Page Rendering", () => {
 
 		expect(screen.getByText("Other Photos")).toBeInTheDocument();
 
-    expect((await screen.findAllByAltText("Cat breed")).length).toBeGreaterThan(1)
+		expect(
+			(await screen.findAllByAltText("Cat breed")).length
+		).toBeGreaterThan(1);
 
-    expect(screen.getByText(MockCatDetailData[0].description)).toBeInTheDocument()
-
+		expect(
+			screen.getByText(MockCatDetailData[0].description)
+		).toBeInTheDocument();
 	});
 });
+
+// TODO: Add test for search components main the logic
